@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>BRÚJULA Finanzas — finanzas-023</title>
+  <title>BRÚJULA Finanzas — finanzas-024</title>
   <meta name="theme-color" content="#ffffff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -254,8 +254,39 @@
 
 <div class="modal" id="modal"><div class="sheet"><div class="sheet-head"><h3 id="modalTitle">Modal</h3><button class="btn small ghost" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
 
+<div class="modal" id="detailModal" aria-hidden="true">
+  <div class="sheet" style="width:min(520px,100%);">
+    <div class="sheet-head">
+      <h3>Nuevo detalle</h3>
+      <button class="btn small ghost" id="closeDetailModal" type="button">✕</button>
+    </div>
+    <div style="display:grid;gap:14px;">
+      <p class="muted-note" style="margin:0;">Escribe el nuevo detalle. Se limpiarán espacios innecesarios y quedará guardado dentro del subtipo seleccionado para futuros gastos.</p>
+      <div class="field">
+        <label>Detalle</label>
+        <input id="detailModalInput" type="text" placeholder="Ej: servilletas, comida perro, almuerzo oficina" autocomplete="off">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Subtipo donde se guardará</label>
+          <select id="detailModalGroup"></select>
+        </div>
+        <div class="field hidden" id="detailModalNewGroupWrap">
+          <label>Nuevo subtipo</label>
+          <input id="detailModalNewGroup" type="text" placeholder="Ej: Mascotas">
+        </div>
+      </div>
+      <small class="footer-note" id="detailModalMsg"></small>
+      <div class="toolbar" style="justify-content:flex-end;">
+        <button class="btn" type="button" id="cancelDetailModal">Cancelar</button>
+        <button class="btn primary" type="button" id="saveDetailModal">Guardar detalle</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-/* BRÚJULA Finanzas — finanzas-023 */
+/* BRÚJULA Finanzas — finanzas-025 */
 window.FINANZAS_FIREBASE_CONFIG = {
   apiKey: "AIzaSyANnrHyj6aa0zwwqerO7uLBrJvbiGl2bhw",
   authDomain: "brujula-be291.firebaseapp.com",
@@ -266,7 +297,7 @@ window.FINANZAS_FIREBASE_CONFIG = {
 };
 (function(){
 'use strict';
-const VERSION='finanzas-023';
+const VERSION='finanzas-024';
 const STORAGE_KEY='brujula_finanzas_v1';
 const THEME_KEY='brujula_theme';
 const $=sel=>document.querySelector(sel);
@@ -291,6 +322,7 @@ const uid=prefix=>`${prefix}_${Date.now()}_${Math.random().toString(16).slice(2,
 const norm=s=>(s||'').toString().trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const clone=o=>JSON.parse(JSON.stringify(o));
 let charts={};
+let activeDetailForm=null;
 let unsubscribers=[];
 let firebaseReady=false, auth=null, firestore=null, currentUser=null, saveTimer=null, remoteApplying=false;
 
@@ -393,7 +425,7 @@ function categoryGroupsForType(type){return [...new Set(categoriesForType(type).
 function isReservedOtherLabel(v){return ['otro','otros','por clasificar','otro detalle','otra'].includes(norm(v));}
 function categoryDetailsFor(type,group){return categoriesForType(type).filter(c=>c.group===group&&!isReservedOtherLabel(c.name)).sort((a,b)=>alphaSort(a.name,b.name))}
 function categoryGroupOptions(type,selected){return categoryGroupsForType(type).map(g=>`<option value="${g}" ${g===selected?'selected':''}>${g}</option>`).join('')}
-function categoryDetailOptions(type,group,selected){const opts=categoryDetailsFor(type,group).map(c=>`<option value="${c.id}" ${c.id===selected?'selected':''}>${c.name}</option>`).join('');return type==='expense'?opts+`<option value="__new_detail__" ${selected==='__new_detail__'?'selected':''}>Otro: ingresar y guardar detalle</option>`:opts}
+function categoryDetailOptions(type,group,selected){const opts=categoryDetailsFor(type,group).map(c=>`<option value="${c.id}" ${c.id===selected?'selected':''}>${c.name}</option>`).join('');return type==='expense'?opts+`<option value="__new_detail__" ${selected==='__new_detail__'?'selected':''}>Otro</option>`:opts}
 function categoryIdFor(type,group,name){return 'cat_'+norm(group+'_'+name).replace(/\W+/g,'_')}
 function cleanLabel(v){return (v||'').toString().trim().replace(/\s+/g,' ')}
 function guessGroupForDetail(detail){const n=norm(detail);const map=[
@@ -415,9 +447,75 @@ function guessGroupForDetail(detail){const n=norm(detail);const map=[
 ];const hit=map.find(([g,words])=>words.some(w=>n.includes(norm(w))));return hit?hit[0]:''}
 function findCategoryByDetail(type,detail){const n=norm(detail);return active(db.categories).find(c=>c.type===type&&norm(c.name)===n)||active(db.categories).find(c=>c.type===type&&(norm(c.name).includes(n)||n.includes(norm(c.name))))}
 function addCategory(type,group,name){group=cleanLabel(group);name=cleanLabel(name);if(!group||!name)return null;if(isReservedOtherLabel(name)){toast('Usa un nombre específico, no “Otro”');return null;}const existing=active(db.categories).find(c=>c.type===type&&norm(c.group)===norm(group)&&norm(c.name)===norm(name));if(existing)return existing;const cat=touch({id:categoryIdFor(type,group,name),type,group,name,reusable:true,active:true,_deleted:false});upsert(db.categories,cat);saveLocal();return cat}
-function renderNewDetailBox(form){if(!form)return;const type=getSelectedType(form);const box=form.querySelector('[data-new-detail-box]');if(!box)return;const detailSelect=form.querySelector('[name=categoryId]');const shouldShow=type==='expense'&&detailSelect&&detailSelect.value==='__new_detail__';box.classList.toggle('hidden',!shouldShow);if(shouldShow)refreshNewDetailSuggestion(form)}
+function renderNewDetailBox(form){if(!form)return;const box=form.querySelector('[data-new-detail-box]');if(box)box.classList.add('hidden')}
 function refreshNewDetailSuggestion(form){const input=form.querySelector('[name=newDetail]');const msg=form.querySelector('[data-new-detail-msg]');const groupSelect=form.querySelector('[name=newDetailGroup]');const newGroupWrap=form.querySelector('[data-new-group-wrap]');if(!input||!msg||!groupSelect)return;const detail=cleanLabel(input.value);const groups=categoryGroupsForType('expense');const currentGroup=form.querySelector('[name=categoryGroup]')?.value||'';const guessed=guessGroupForDetail(detail)||currentGroup||groups[0]||'';groupSelect.innerHTML=groups.map(g=>`<option value="${g}" ${g===guessed?'selected':''}>${g}</option>`).join('')+'<option value="__new__">Crear nuevo subtipo</option>';newGroupWrap?.classList.toggle('hidden',groupSelect.value!=='__new__');if(!detail){msg.textContent='Escribe el nuevo detalle y guárdalo. Quedará disponible dentro de esta categoría para los próximos gastos.';return;}const existing=findCategoryByDetail('expense',detail);if(existing){msg.textContent=`Ya existe como ${existing.group} · ${existing.name}. Al crear/usar, lo seleccionaré automáticamente.`;}else{msg.textContent=`Se guardará “${detail}” dentro de “${guessed||'un subtipo nuevo'}”.`;}}
 function createDetailFromForm(form){const detail=cleanLabel(form.querySelector('[name=newDetail]')?.value);if(!detail){toast('Escribe el detalle nuevo');return;}if(isReservedOtherLabel(detail)){toast('Usa un nombre específico para el detalle');return;}let group=form.querySelector('[name=newDetailGroup]')?.value||'';if(group==='__new__')group=cleanLabel(form.querySelector('[name=newGroup]')?.value);if(!group){toast('Selecciona o crea un subtipo');return;}const existing=findCategoryByDetail('expense',detail);const cat=existing||addCategory('expense',group,detail);if(!cat)return;const gs=form.querySelector('[name=categoryGroup]');const ds=form.querySelector('[name=categoryId]');if(gs&&ds){gs.value=cat.group;refreshQuickSelectors(form);ds.value=cat.id;}form.querySelector('[name=newDetail]').value='';const ng=form.querySelector('[name=newGroup]');if(ng)ng.value='';renderNewDetailBox(form);toast(existing?'Detalle existente seleccionado':'Detalle creado y seleccionado');}
+
+function detailModalGroupOptions(selected){const groups=categoryGroupsForType('expense');return groups.map(g=>`<option value="${g}" ${g===selected?'selected':''}>${g}</option>`).join('')+'<option value="__new__">Crear nuevo subtipo</option>'}
+function openDetailModalFromForm(form){
+  if(!form)return;
+  activeDetailForm=form;
+  const group=form.querySelector('[name=categoryGroup]')?.value||categoryGroupsForType('expense')[0]||'';
+  const dm=$('#detailModal');
+  const input=$('#detailModalInput');
+  const groupSel=$('#detailModalGroup');
+  const newGroup=$('#detailModalNewGroup');
+  input.value='';
+  newGroup.value='';
+  groupSel.innerHTML=detailModalGroupOptions(group);
+  $('#detailModalNewGroupWrap').classList.toggle('hidden',groupSel.value!=='__new__');
+  updateDetailModalMessage();
+  dm.classList.add('show');
+  dm.setAttribute('aria-hidden','false');
+  setTimeout(()=>input.focus(),80);
+}
+function closeDetailModal(restore=true){
+  const dm=$('#detailModal');
+  dm.classList.remove('show');
+  dm.setAttribute('aria-hidden','true');
+  if(restore&&activeDetailForm){
+    const ds=activeDetailForm.querySelector('[name=categoryId]');
+    const group=activeDetailForm.querySelector('[name=categoryGroup]')?.value||'';
+    const first=categoryDetailsFor('expense',group)[0];
+    if(ds&&ds.value==='__new_detail__') ds.value=first?.id||'';
+  }
+  activeDetailForm=null;
+}
+function updateDetailModalMessage(){
+  const detail=cleanLabel($('#detailModalInput')?.value||'');
+  const groupSel=$('#detailModalGroup');
+  const wrap=$('#detailModalNewGroupWrap');
+  const msg=$('#detailModalMsg');
+  if(wrap&&groupSel)wrap.classList.toggle('hidden',groupSel.value!=='__new__');
+  if(!msg)return;
+  if(!detail){msg.textContent='El detalle se guardará dentro del subtipo seleccionado y quedará disponible en la lista.';return;}
+  const existing=findCategoryByDetail('expense',detail);
+  if(existing){msg.textContent=`Ya existe como ${existing.group} · ${existing.name}. Al guardar, se seleccionará automáticamente.`;}
+  else{
+    const group=groupSel?.value==='__new__'?cleanLabel($('#detailModalNewGroup')?.value):groupSel?.value;
+    msg.textContent=`Se creará “${detail}” dentro de “${group||'nuevo subtipo'}”.`;
+  }
+}
+function saveDetailFromModal(){
+  if(!activeDetailForm){closeDetailModal(false);return;}
+  const input=$('#detailModalInput');
+  const detail=cleanLabel(input.value);
+  input.value=detail;
+  if(!detail){toast('Escribe el detalle nuevo');input.focus();return;}
+  if(isReservedOtherLabel(detail)){toast('Usa un nombre específico para el detalle');input.focus();return;}
+  let group=$('#detailModalGroup')?.value||'';
+  if(group==='__new__')group=cleanLabel($('#detailModalNewGroup')?.value);
+  if(!group){toast('Selecciona o crea un subtipo');return;}
+  const existing=findCategoryByDetail('expense',detail);
+  const cat=existing||addCategory('expense',group,detail);
+  if(!cat)return;
+  const form=activeDetailForm;
+  const gs=form.querySelector('[name=categoryGroup]');
+  const ds=form.querySelector('[name=categoryId]');
+  if(gs&&ds){gs.value=cat.group;refreshQuickSelectors(form);ds.value=cat.id;}
+  closeDetailModal(false);
+  toast(existing?'Detalle existente seleccionado':'Detalle creado y seleccionado');
+}
 function bankAccounts(){const allowed=['Banco de Chile','Banco Estado','Itau','Mach','Scotiabank'];return active(db.accounts).filter(a=>allowed.some(n=>norm(n)===norm(a.name))).sort((a,b)=>alphaSort(a.name,b.name))}
 function getSelectedType(form){return form?.querySelector('[name=type]')?.value||'expense'}
 function refreshQuickSelectors(form){if(!form)return;const type=getSelectedType(form);const isTransfer=type==='transfer';const groupSelect=form.querySelector('[name=categoryGroup]');const detailSelect=form.querySelector('[name=categoryId]');if(!isTransfer&&groupSelect&&detailSelect){const currentGroup=groupSelect.value;const groups=categoryGroupsForType(type);const group=groups.includes(currentGroup)?currentGroup:groups[0];groupSelect.innerHTML=categoryGroupOptions(type,group);detailSelect.innerHTML=categoryDetailOptions(type,group,detailSelect.value);}else{if(groupSelect)groupSelect.innerHTML='';if(detailSelect)detailSelect.innerHTML='';}
@@ -532,7 +630,7 @@ function openMovementForm(m={}){
       </div>
       <div class="option-box ${type==='expense'?'':'hidden'}" data-santiago-box><label class="check-line"><input name="tagSantiago" type="checkbox" ${hasTag(m,'Santiago')?'checked':''}> Etiqueta Santiago</label><small class="footer-note">Marca gastos específicos de Santiago para filtrarlos después.</small></div>
       <div class="option-box ${type==='expense'?'':'hidden'}" data-duration-box><label class="check-line"><input name="trackDuration" type="checkbox" ${m.trackDuration?'checked':''}> Medir cuánto dura esta compra</label><div class="field"><label>Próxima compra estimada</label><input name="expectedNextDate" type="date" value="${m.expectedNextDate||''}"><small class="footer-note">La app contará desde la fecha de compra hasta esta fecha.</small></div></div>
-      <div class="option-box ${type==='expense'?'':'hidden'}" data-new-detail-box><div class="field"><label>Agregar detalle nuevo</label><input name="newDetail" placeholder="Ej: lavandería, veterinario, almuerzo oficina"></div><div class="row"><div class="field"><label>Subtipo sugerido</label><select name="newDetailGroup"></select></div><div class="field hidden" data-new-group-wrap><label>Nuevo subtipo</label><input name="newGroup" placeholder="Ej: Mascotas"></div></div><small class="footer-note" data-new-detail-msg></small><button class="btn small" type="button" data-create-detail>Crear y usar detalle</button></div>
+      <div class="option-box hidden" data-new-detail-box><div class="field"><label>Agregar detalle nuevo</label><input name="newDetail" placeholder="Ej: lavandería, veterinario, almuerzo oficina"></div><div class="row"><div class="field"><label>Subtipo sugerido</label><select name="newDetailGroup"></select></div><div class="field hidden" data-new-group-wrap><label>Nuevo subtipo</label><input name="newGroup" placeholder="Ej: Mascotas"></div></div><small class="footer-note" data-new-detail-msg></small><button class="btn small" type="button" data-create-detail>Crear y usar detalle</button></div>
       <button class="btn primary" type="submit">Guardar</button>
     </form>`);setTimeout(()=>{refreshQuickSelectors($('#movementForm'));bindMoneyInputs($('#movementForm'));},0);
 }
@@ -642,7 +740,7 @@ function bind(){
  document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;if(t.dataset.tab){e.preventDefault();switchTab(t.dataset.tab);return;}
  if(t.dataset.createDetail){createDetailFromForm(t.closest('form'));return;} if(t.id==='openMovementBtn')openMovementForm(); if(t.id==='openAccountBtn')openAccountForm(); if(t.id==='openSavingBtn')openSavingForm(); if(t.id==='openDebtBtn')openDebtForm(); if(t.id==='closeModal')closeModal(); if(t.id==='exportBtn')exportJson(); if(t.id==='seedBtn')seedDemo(); if(t.id==='refreshControl')renderControl(); if(t.id==='authBtn')authAction(); if(t.id==='themeBtn')setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
  if(t.dataset.loginMode){setLoginMode(t.dataset.loginMode);return;} if(t.id==='forgotPassBtn'){forgotPassword();return;} if(t.dataset.delMov)deleteById(db.movements,t.dataset.delMov); if(t.dataset.editMov)openMovementForm(byId(db.movements,t.dataset.editMov)); if(t.dataset.editSaving)openSavingForm(byId(db.savingsAccounts,t.dataset.editSaving)); if(t.dataset.editDebt)openDebtForm(byId(db.debts,t.dataset.editDebt));});
- $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});$('#loginForm')?.addEventListener('submit',handleLoginSubmit);$('#controlMonth').addEventListener('change',renderControl);$('#controlTagFilter')?.addEventListener('change',renderControl);document.addEventListener('input',e=>{if(e.target.name==='date'){const form=e.target.closest('form');const pv=form&&form.querySelector('[data-period-preview]');if(pv)pv.textContent=periodFromDate(e.target.value);const y=form&&form.querySelector('[name=incomeYear]');const m=form&&form.querySelector('[name=incomeMonth]');if(y&&!y.dataset.touched&&m&&!m.dataset.touched)setIncomePeriodSelectors(form,periodFromDate(e.target.value));else updateIncomePeriodPreview(form);} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetail'){refreshNewDetailSuggestion(e.target.closest('form'));} if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));}});document.addEventListener('change',e=>{if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));} if(e.target.name==='categoryId'){renderNewDetailBox(e.target.closest('form'));} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetailGroup'){const form=e.target.closest('form');const wrap=form?.querySelector('[data-new-group-wrap]');if(wrap)wrap.classList.toggle('hidden',e.target.value!=='__new__');}});}
+ $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});$('#detailModal')?.addEventListener('click',e=>{if(e.target.id==='detailModal')closeDetailModal(true)});$('#closeDetailModal')?.addEventListener('click',()=>closeDetailModal(true));$('#cancelDetailModal')?.addEventListener('click',()=>closeDetailModal(true));$('#saveDetailModal')?.addEventListener('click',saveDetailFromModal);$('#detailModalInput')?.addEventListener('blur',e=>{e.target.value=cleanLabel(e.target.value);updateDetailModalMessage();});$('#detailModalInput')?.addEventListener('input',updateDetailModalMessage);$('#detailModalGroup')?.addEventListener('change',updateDetailModalMessage);$('#detailModalNewGroup')?.addEventListener('blur',e=>{e.target.value=cleanLabel(e.target.value);updateDetailModalMessage();});$('#detailModalNewGroup')?.addEventListener('input',updateDetailModalMessage);$('#loginForm')?.addEventListener('submit',handleLoginSubmit);$('#controlMonth').addEventListener('change',renderControl);$('#controlTagFilter')?.addEventListener('change',renderControl);document.addEventListener('input',e=>{if(e.target.name==='date'){const form=e.target.closest('form');const pv=form&&form.querySelector('[data-period-preview]');if(pv)pv.textContent=periodFromDate(e.target.value);const y=form&&form.querySelector('[name=incomeYear]');const m=form&&form.querySelector('[name=incomeMonth]');if(y&&!y.dataset.touched&&m&&!m.dataset.touched)setIncomePeriodSelectors(form,periodFromDate(e.target.value));else updateIncomePeriodPreview(form);} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetail'){refreshNewDetailSuggestion(e.target.closest('form'));} if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));}});document.addEventListener('change',e=>{if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));} if(e.target.name==='categoryId'){const form=e.target.closest('form');if(e.target.value==='__new_detail__')openDetailModalFromForm(form);else renderNewDetailBox(form);} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetailGroup'){const form=e.target.closest('form');const wrap=form?.querySelector('[data-new-group-wrap]');if(wrap)wrap.classList.toggle('hidden',e.target.value!=='__new__');}});}
 
 function boot(){document.body.classList.add('auth-required');setTheme(localStorage.getItem(THEME_KEY)||'light');loadLocal();bind();renderAll();initFirebase();const manifest={name:'BRÚJULA Finanzas',short_name:'BRÚJULA',start_url:'.',display:'standalone',background_color:'#ffffff',theme_color:'#ffffff',icons:[]};const link=document.createElement('link');link.rel='manifest';link.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(manifest));document.head.appendChild(link);}
 boot();
