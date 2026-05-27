@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>BRÚJULA Finanzas — finanzas-014</title>
+  <title>BRÚJULA Finanzas — finanzas-017</title>
   <meta name="theme-color" content="#ffffff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -102,13 +102,32 @@
     .list{display:grid;gap:10px}.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:22px;background:var(--panel)}.item-icon{width:38px;height:38px;border-radius:18px;background:var(--bg2);display:grid;place-items:center;font-weight:900}.item-title{font-weight:850;font-size:14px}.item-sub{color:var(--muted);font-size:12px;margin-top:3px;line-height:1.4}.amount{font-weight:900;font-size:16px;text-align:right;letter-spacing:-.04em}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.small-select{width:auto;min-width:138px;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800;background:var(--panel)}
     .seg{display:flex;background:var(--bg2);padding:5px;border-radius:999px;border:1px solid var(--border);width:max-content}.seg button{border:0;background:transparent;color:var(--muted);padding:8px 12px;border-radius:999px;font-weight:800}.seg button.active{background:var(--panel);color:var(--ink);box-shadow:0 1px 5px rgba(16,24,40,.06)}
     .table{width:100%;border-collapse:separate;border-spacing:0 8px}.table th{font-size:12px;text-transform:none;letter-spacing:0;text-align:left;color:var(--muted);padding:0 10px}.table td{background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 10px}.table td:first-child{border-left:1px solid var(--border);border-radius:16px 0 0 16px}.table td:last-child{border-right:1px solid var(--border);border-radius:0 16px 16px 0;text-align:right;font-weight:900}.insights{display:grid;gap:10px}.insight{border-left:0;padding:14px 16px;background:var(--bg2);border-radius:18px;color:var(--ink);font-weight:600}.insight::before{content:'↗';color:var(--teal-dark);font-weight:900;margin-right:8px}.progress{height:12px;background:var(--bg2);border-radius:999px;overflow:hidden;border:1px solid var(--border)}.progress span{display:block;height:100%;background:var(--teal);border-radius:999px}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:20px}.modal.show{display:flex}.sheet{width:min(780px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:30px;padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.24)}.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.sheet h3{font-size:24px;margin:0;letter-spacing:-.045em}.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:999px;font-weight:900;box-shadow:var(--shadow);z-index:200;display:none}.toast.show{display:block}.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:28px;border:1px dashed var(--border);border-radius:22px;background:var(--bg2)}canvas{max-height:330px}.footer-note{font-size:12px;color:var(--muted);line-height:1.45}.danger-zone{border-color:rgba(217,45,32,.18);background:rgba(217,45,32,.05)}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:20px}.modal.show{display:flex}.sheet{width:min(820px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:30px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,.24)}.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.sheet h3{font-size:24px;margin:0;letter-spacing:-.045em}.sheet form{gap:16px}.sheet .row{gap:14px;align-items:start}.sheet .field{gap:7px}.sheet input,.sheet select{min-height:50px}.option-box{border:1px solid var(--border);border-radius:22px;background:var(--panel);padding:14px;display:grid;gap:10px}.check-line{display:flex;align-items:center;gap:10px;font-weight:850;color:var(--ink);font-size:13px}.check-line input{width:18px;height:18px;min-height:auto;margin:0;accent-color:var(--teal)}.option-box .footer-note{margin:0}.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:999px;font-weight:900;box-shadow:var(--shadow);z-index:200;display:none}.toast.show{display:block}.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:28px;border:1px dashed var(--border);border-radius:22px;background:var(--bg2)}canvas{max-height:330px}.footer-note{font-size:12px;color:var(--muted);line-height:1.45}.danger-zone{border-color:rgba(217,45,32,.18);background:rgba(217,45,32,.05)}
 
     .clean-home{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:16px;align-items:start}
     .period-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}.account-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}.account-balance{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:12px}.account-balance .label{display:block;color:var(--muted);font-size:11px;font-weight:800}.account-balance .value{display:block;font-size:16px;font-weight:900;letter-spacing:-.04em;margin-top:4px}
     .mini-kpi{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:12px}.mini-kpi .label{display:block;color:var(--muted);font-size:11px;font-weight:800}.mini-kpi .value{display:block;font-size:18px;font-weight:900;letter-spacing:-.04em;margin-top:4px}
     .hero-action{min-height:180px;display:grid;place-items:center}.add-movement{font-size:15px;padding:14px 22px}.ledger{display:grid;gap:8px}.ledger-row{display:grid;grid-template-columns:80px 1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--border);border-radius:18px;background:var(--panel)}.ledger-date{font-size:12px;color:var(--muted);font-weight:800}.ledger-main{min-width:0}.ledger-title{font-weight:850;font-size:14px}.ledger-sub{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ledger-amount{font-size:14px;font-weight:900;text-align:right}.ledger-balance{font-size:11px;color:var(--muted);font-weight:800;text-align:right;margin-top:2px}
-    @media(max-width:850px){.app{padding:14px 12px 98px}.topbar{margin:-14px -12px 14px;padding:12px}.brand h1{font-size:27px}.hero,.grid.two,.grid.three,.grid.four,.clean-home{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hero-title{font-size:30px}.topline{align-items:flex-start}.actions .sync{width:100%;text-align:right}.tabs{left:50%;top:auto;bottom:calc(12px + var(--safe));width:auto;transform:translateX(-50%);border:1px solid var(--border);border-radius:999px;padding:8px;display:flex;flex-direction:row;gap:2px;box-shadow:0 18px 50px rgba(0,0,0,.12);max-width:calc(100% - 18px);background:rgba(255,255,255,.92);backdrop-filter:blur(16px)}[data-theme="dark"] .tabs{background:rgba(22,28,31,.92)}.tabs::before{display:none}.tab{padding:10px 10px;font-size:13px;border-radius:999px;gap:6px}.tab.active{background:var(--ink);color:var(--bg)}.tab.active::after{display:none}.section-head{align-items:flex-start;flex-direction:column}.item{grid-template-columns:auto 1fr}.item .amount{grid-column:2;text-align:left}.hide-mobile{display:none}.table{font-size:13px}.table th:nth-child(3),.table td:nth-child(3){display:none}}
+
+    .login-overlay{position:fixed;inset:0;z-index:140;display:grid;place-items:center;background:#15110c;color:#fff;padding:24px;min-height:100dvh}
+    .login-overlay[hidden]{display:none!important}
+    .login-card{width:min(420px,100%);display:grid;gap:18px;text-align:center}
+    .login-brand{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-style:italic;font-size:48px;letter-spacing:-.055em;line-height:.9;color:#fff}
+    .login-subtitle{font-size:12px;letter-spacing:.42em;color:#d7a42a;font-weight:700;margin-top:-8px;text-transform:uppercase}
+    .login-rule{width:48px;height:1px;background:#d7a42a;margin:0 auto 4px}
+    .login-seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(255,255,255,.18);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.03)}
+    .login-seg button{border:0;background:transparent;color:#f4efe6;padding:13px 10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+    .login-seg button.active{background:#d7a42a;color:#050505}
+    .login-form{display:grid;gap:12px}
+    .login-form input{background:#eef4ff;color:#08111f;border-color:transparent;border-radius:7px;padding:15px 16px;font-size:16px}
+    .login-submit{border:0;border-radius:7px;background:#d7a42a;color:#050505;padding:15px 16px;font-weight:900;font-size:16px;letter-spacing:.02em}
+    .login-link{border:0;background:transparent;color:#e7d7aa;text-decoration:underline;font-size:13px;font-weight:600;width:max-content;margin:0 auto;padding:4px}
+    .login-secondary{border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;width:max-content;margin:0 auto}
+    .login-note{color:#d8ccbd;font-size:12px;line-height:1.45;margin-top:22px}
+    .login-msg{min-height:20px;color:#f4c6bf;font-size:13px;font-weight:800;line-height:1.35}
+    @media(max-width:520px){.login-brand{font-size:43px}.login-card{gap:16px}.login-overlay{padding:26px}}
+
+    @media(max-width:850px){.app{padding:14px 12px 98px}.topbar{margin:-14px -12px 14px;padding:12px}.brand h1{font-size:27px}.hero,.grid.two,.grid.three,.grid.four,.clean-home{grid-template-columns:1fr}.row{grid-template-columns:1fr}.modal{padding:0}.sheet{width:100%;max-height:94vh;border-radius:26px 26px 0 0;padding:18px}.sheet h3{font-size:23px}.sheet form{gap:14px}.option-box{padding:13px}.hero-title{font-size:30px}.topline{align-items:flex-start}.actions .sync{width:100%;text-align:right}.tabs{left:50%;top:auto;bottom:calc(12px + var(--safe));width:auto;transform:translateX(-50%);border:1px solid var(--border);border-radius:999px;padding:8px;display:flex;flex-direction:row;gap:2px;box-shadow:0 18px 50px rgba(0,0,0,.12);max-width:calc(100% - 18px);background:rgba(255,255,255,.92);backdrop-filter:blur(16px)}[data-theme="dark"] .tabs{background:rgba(22,28,31,.92)}.tabs::before{display:none}.tab{padding:10px 10px;font-size:13px;border-radius:999px;gap:6px}.tab.active{background:var(--ink);color:var(--bg)}.tab.active::after{display:none}.section-head{align-items:flex-start;flex-direction:column}.item{grid-template-columns:auto 1fr}.item .amount{grid-column:2;text-align:left}.hide-mobile{display:none}.table{font-size:13px}.table th:nth-child(3),.table td:nth-child(3){display:none}}
   </style>
 </head>
 <body>
@@ -118,7 +137,7 @@
     <div class="topline">
       <div class="brand">
         <div class="logo">B</div>
-        <div><h1>BRÚJULA</h1><small>finanzas-012 · manual-first</small></div>
+        <div><h1>BRÚJULA</h1><small>finanzas-016 · manual-first</small></div>
       </div>
       <div class="actions">
         <span class="sync" id="syncStatus">Local listo</span>
@@ -208,10 +227,34 @@
   <button class="tab" data-tab="cuanto">⏳ Cuánto dura</button>
 </nav>
 
+
+<div class="login-overlay" id="loginOverlay" hidden>
+  <div class="login-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div>
+      <div class="login-brand" id="loginTitle">BRÚJULA</div>
+      <div class="login-subtitle">Finanzas personales</div>
+    </div>
+    <div class="login-rule"></div>
+    <div class="login-seg" aria-label="Modo de acceso">
+      <button type="button" class="active" data-login-mode="signin">Entrar</button>
+      <button type="button" data-login-mode="signup">Crear cuenta</button>
+    </div>
+    <form class="login-form" id="loginForm">
+      <input type="email" name="email" autocomplete="email" placeholder="correo@ejemplo.com" required>
+      <input type="password" name="password" autocomplete="current-password" placeholder="Contraseña" required minlength="6">
+      <button class="login-submit" id="loginSubmit" type="submit">Entrar</button>
+    </form>
+    <button type="button" class="login-link" id="forgotPassBtn">¿Olvidaste tu contraseña?</button>
+    <div class="login-msg" id="loginMsg"></div>
+    <button type="button" class="login-secondary" id="localModeBtn">Usar sin sesión</button>
+    <div class="login-note">Tus datos se guardan localmente y, al iniciar sesión, se sincronizan con Firebase.</div>
+  </div>
+</div>
+
 <div class="modal" id="modal"><div class="sheet"><div class="sheet-head"><h3 id="modalTitle">Modal</h3><button class="btn small ghost" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
 
 <script>
-/* BRÚJULA Finanzas — finanzas-012 */
+/* BRÚJULA Finanzas — finanzas-016 */
 window.FINANZAS_FIREBASE_CONFIG = {
   apiKey: "AIzaSyANrHYj6aa0zwwqerO7uLBrJvbiGl2bhw",
   authDomain: "brujula-be291.firebaseapp.com",
@@ -222,7 +265,7 @@ window.FINANZAS_FIREBASE_CONFIG = {
 };
 (function(){
 'use strict';
-const VERSION='finanzas-014';
+const VERSION='finanzas-016';
 const STORAGE_KEY='brujula_finanzas_v1';
 const THEME_KEY='brujula_theme';
 const $=sel=>document.querySelector(sel);
@@ -230,6 +273,18 @@ const $$=sel=>Array.from(document.querySelectorAll(sel));
 const today=()=>new Date().toISOString().slice(0,10);
 const currentMonth=()=>today().slice(0,7);
 const money=n=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(Number(n||0));
+const parseCLP=v=>Number(String(v||'').replace(/[^0-9-]/g,''))||0;
+const formatCLPInput=v=>{
+  const n=parseCLP(v);
+  return n?new Intl.NumberFormat('es-CL',{maximumFractionDigits:0}).format(n):'';
+};
+function bindMoneyInputs(scope=document){
+  $$('.money-input',scope).forEach(input=>{
+    input.addEventListener('focus',()=>{input.value=String(input.value||'').replace(/[^0-9-]/g,'')});
+    input.addEventListener('blur',()=>{input.value=formatCLPInput(input.value)});
+    input.addEventListener('input',()=>{input.value=input.value.replace(/[^0-9]/g,'')});
+  });
+}
 const pct=n=>`${Math.round((Number(n)||0)*100)}%`;
 const uid=prefix=>`${prefix}_${Date.now()}_${Math.random().toString(16).slice(2,8)}`;
 const norm=s=>(s||'').toString().trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -368,17 +423,17 @@ const durBox=form.querySelector('[data-duration-box]');if(durBox)durBox.classLis
 function renderQuickForm(){const host=$('#quickMovementForm');if(!host)return;const acc=bankAccounts();host.innerHTML=`
   <div class="row"><div class="field"><label>Fecha</label><input name="date" type="date" value="${defaultDate()}" required><small class="footer-note">Período por fecha: <b data-period-preview>${periodFromDate(defaultDate())}</b></small></div><div class="field"><label>Movimiento</label><select name="type"><option value="income">Ingreso</option><option value="expense" selected>Gasto</option><option value="transfer">Transferencia</option></select><small class="footer-note" data-type-hint>El gasto quedará en el ciclo del último sueldo registrado.</small></div></div>
   <div class="hidden" data-income-period-wrap><label class="section-label">Período del ingreso / sueldo</label>${periodPickerHtml(periodFromDate(defaultDate()))}</div>
-  <div class="row"><div class="field"><label>Monto</label><input name="amount" type="number" inputmode="numeric" min="0" step="1" placeholder="35000" required></div><div class="field" data-single-bank-wrap><label data-bank-label>Banco o cuenta que paga</label><select name="bankAccountId"><option value="">Selecciona banco</option>${acc.map(a=>`<option value="${a.id}">${a.name}</option>`).join('')}</select></div></div>
+  <div class="row"><div class="field"><label>Monto</label><input name="amount" class="money-input" type="text" inputmode="numeric" placeholder="35.000" required></div><div class="field" data-single-bank-wrap><label data-bank-label>Banco o cuenta que paga</label><select name="bankAccountId"><option value="">Selecciona banco</option>${acc.map(a=>`<option value="${a.id}">${a.name}</option>`).join('')}</select></div></div>
   <div class="row hidden" data-transfer-wrap><div class="field"><label>Cuenta origen / descarga</label><select name="accountFromId"><option value="">Selecciona origen</option>${acc.map(a=>`<option value="${a.id}">${a.name}</option>`).join('')}</select></div><div class="field"><label>Cuenta destino / carga</label><select name="accountToId"><option value="">Selecciona destino</option>${acc.map(a=>`<option value="${a.id}">${a.name}</option>`).join('')}</select></div></div>
   <div class="row" data-category-row><div class="field"><label>Subtipo</label><select name="categoryGroup"></select></div><div class="field"><label>Detalle</label><select name="categoryId"></select></div></div>
-  <div class="card subtle" data-santiago-box style="padding:12px;margin:8px 0"><label class="chip"><input name="tagSantiago" type="checkbox"> Etiqueta Santiago</label><small class="footer-note">Marca gastos específicos de Santiago para filtrarlos después.</small></div>
-  <div class="card subtle" data-duration-box style="padding:12px;margin:8px 0"><label class="chip"><input name="trackDuration" type="checkbox"> Medir cuánto dura esta compra</label><div class="field" style="margin-top:8px"><label>Próxima compra estimada</label><input name="expectedNextDate" type="date"><small class="footer-note">Ejemplo: leche comprada hoy y próxima compra estimada el próximo mes.</small></div></div>
+  <div class="option-box" data-santiago-box><label class="check-line"><input name="tagSantiago" type="checkbox"> Etiqueta Santiago</label><small class="footer-note">Marca gastos específicos de Santiago para filtrarlos después.</small></div>
+  <div class="option-box" data-duration-box><label class="check-line"><input name="trackDuration" type="checkbox"> Medir cuánto dura esta compra</label><div class="field"><label>Próxima compra estimada</label><input name="expectedNextDate" type="date"><small class="footer-note">Ejemplo: leche comprada hoy y próxima compra estimada el próximo mes.</small></div></div>
   <div class="card subtle hidden" data-new-detail-box style="padding:12px;margin:8px 0"><div class="field"><label>Agregar detalle nuevo</label><input name="newDetail" placeholder="Ej: lavandería, veterinario, almuerzo oficina"></div><div class="row"><div class="field"><label>Subtipo sugerido</label><select name="newDetailGroup"></select></div><div class="field hidden" data-new-group-wrap><label>Nuevo subtipo</label><input name="newGroup" placeholder="Ej: Mascotas"></div></div><small class="footer-note" data-new-detail-msg></small><button class="btn small" type="button" data-create-detail>Crear y usar detalle</button></div>
   <button class="btn primary" type="submit">Guardar línea</button>`;
   refreshQuickSelectors(host);
 }
 
-function movementDraftFromForm(form,id){const fd=new FormData(form);let date=fd.get('date')||defaultDate();const type=fd.get('type')||'expense';const amount=Number(fd.get('amount')||0);if(!amount||amount<0){toast('Ingresa un monto válido');return null;}let accountFromId=null,accountToId=null,categoryId=null,period=type==='income'?incomePeriodFromForm(fd,date):periodForDateBySalaryCycle(date);if(type==='transfer'){accountFromId=fd.get('accountFromId')||null;accountToId=fd.get('accountToId')||null;if(!accountFromId||!accountToId){toast('Selecciona cuenta origen y destino');return null;}if(accountFromId===accountToId){toast('La cuenta origen y destino deben ser distintas');return null;}}else{const bank=fd.get('bankAccountId')||null;if(!bank){toast('Selecciona el banco');return null;}accountFromId=type==='expense'?bank:null;accountToId=type==='income'?bank:null;categoryId=fd.get('categoryId')||null;}
+function movementDraftFromForm(form,id){const fd=new FormData(form);let date=fd.get('date')||defaultDate();const type=fd.get('type')||'expense';const amount=parseCLP(fd.get('amount'));if(!amount||amount<0){toast('Ingresa un monto válido');return null;}let accountFromId=null,accountToId=null,categoryId=null,period=type==='income'?incomePeriodFromForm(fd,date):periodForDateBySalaryCycle(date);if(type==='transfer'){accountFromId=fd.get('accountFromId')||null;accountToId=fd.get('accountToId')||null;if(!accountFromId||!accountToId){toast('Selecciona cuenta origen y destino');return null;}if(accountFromId===accountToId){toast('La cuenta origen y destino deben ser distintas');return null;}}else{const bank=fd.get('bankAccountId')||null;if(!bank){toast('Selecciona el banco');return null;}accountFromId=type==='expense'?bank:null;accountToId=type==='income'?bank:null;categoryId=fd.get('categoryId')||null;}
 let mov={id,date,dateTime:date+'T00:00',period,type,amount,currency:'CLP',accountFromId,accountToId,categoryId,description:'',paymentMethod:'manual',personOrGoal:type==='income'?'Ingreso':type==='transfer'?'Transferencia':'Hogar',trackDuration:type==='expense'&&fd.get('trackDuration')==='on',expectedNextDate:(type==='expense'&&fd.get('trackDuration')==='on')?(fd.get('expectedNextDate')||null):null,isRecurring:false,isDoubt:false,tags:(type==='expense'&&fd.get('tagSantiago')==='on')?['Santiago']:[],source:'manual',_deleted:false};if(mov.tags.includes('Santiago')) mov.personOrGoal='Santiago';return type==='transfer'?mov:applyRules(mov);}
 
 function handleMovementSubmit(form){const mov=movementDraftFromForm(form,uid('mov'));if(!mov)return;touch(mov);db.movements.push(mov);recalculateSalaryCyclePeriods();saveLocal();renderAll();toast(mov.type==='income'?'Ingreso guardado':mov.type==='transfer'?'Transferencia guardada':'Gasto guardado');}
@@ -442,7 +497,7 @@ function openMovementForm(m={}){
       </div>
       <div class="${type==='income'?'':'hidden'}" data-income-period-wrap><label class="section-label">Período del ingreso / sueldo</label>${periodPickerHtml(normalizePeriod(m.period||periodFromDate(date)))}</div>
       <div class="row">
-        <div class="field"><label>Monto</label><input name="amount" type="number" inputmode="numeric" min="0" step="1" value="${m.amount||''}" required></div>
+        <div class="field"><label>Monto</label><input name="amount" class="money-input" type="text" inputmode="numeric" value="${formatCLPInput(m.amount||'')}" required></div>
         <div class="field ${type==='transfer'?'hidden':''}" data-single-bank-wrap><label data-bank-label>${type==='income'?'Banco que recibe':type==='transfer'?'Cuenta':'Banco o cuenta que paga'}</label><select name="bankAccountId"><option value="">Selecciona banco</option>${accountOptions(type==='income'?toId:fromId)}</select></div>
       </div>
       <div class="row ${type==='transfer'?'':'hidden'}" data-transfer-wrap>
@@ -453,11 +508,11 @@ function openMovementForm(m={}){
         <div class="field"><label>Subtipo</label><select name="categoryGroup">${type==='transfer'?'':categoryGroupOptions(type,group)}</select></div>
         <div class="field"><label>Detalle</label><select name="categoryId">${type==='transfer'?'':categoryDetailOptions(type,group,m.categoryId)}</select></div>
       </div>
-      <div class="card subtle ${type==='expense'?'':'hidden'}" data-santiago-box style="padding:12px;margin:8px 0"><label class="chip"><input name="tagSantiago" type="checkbox" ${hasTag(m,'Santiago')?'checked':''}> Etiqueta Santiago</label><small class="footer-note">Marca gastos específicos de Santiago para filtrarlos después.</small></div>
-      <div class="card subtle ${type==='expense'?'':'hidden'}" data-duration-box style="padding:12px;margin:8px 0"><label class="chip"><input name="trackDuration" type="checkbox" ${m.trackDuration?'checked':''}> Medir cuánto dura esta compra</label><div class="field" style="margin-top:8px"><label>Próxima compra estimada</label><input name="expectedNextDate" type="date" value="${m.expectedNextDate||''}"><small class="footer-note">La app contará desde la fecha de compra hasta esta fecha.</small></div></div>
-      <div class="card subtle ${type==='expense'?'':'hidden'}" data-new-detail-box style="padding:12px;margin:8px 0"><div class="field"><label>Agregar detalle nuevo</label><input name="newDetail" placeholder="Ej: lavandería, veterinario, almuerzo oficina"></div><div class="row"><div class="field"><label>Subtipo sugerido</label><select name="newDetailGroup"></select></div><div class="field hidden" data-new-group-wrap><label>Nuevo subtipo</label><input name="newGroup" placeholder="Ej: Mascotas"></div></div><small class="footer-note" data-new-detail-msg></small><button class="btn small" type="button" data-create-detail>Crear y usar detalle</button></div>
+      <div class="option-box ${type==='expense'?'':'hidden'}" data-santiago-box><label class="check-line"><input name="tagSantiago" type="checkbox" ${hasTag(m,'Santiago')?'checked':''}> Etiqueta Santiago</label><small class="footer-note">Marca gastos específicos de Santiago para filtrarlos después.</small></div>
+      <div class="option-box ${type==='expense'?'':'hidden'}" data-duration-box><label class="check-line"><input name="trackDuration" type="checkbox" ${m.trackDuration?'checked':''}> Medir cuánto dura esta compra</label><div class="field"><label>Próxima compra estimada</label><input name="expectedNextDate" type="date" value="${m.expectedNextDate||''}"><small class="footer-note">La app contará desde la fecha de compra hasta esta fecha.</small></div></div>
+      <div class="option-box ${type==='expense'?'':'hidden'}" data-new-detail-box><div class="field"><label>Agregar detalle nuevo</label><input name="newDetail" placeholder="Ej: lavandería, veterinario, almuerzo oficina"></div><div class="row"><div class="field"><label>Subtipo sugerido</label><select name="newDetailGroup"></select></div><div class="field hidden" data-new-group-wrap><label>Nuevo subtipo</label><input name="newGroup" placeholder="Ej: Mascotas"></div></div><small class="footer-note" data-new-detail-msg></small><button class="btn small" type="button" data-create-detail>Crear y usar detalle</button></div>
       <button class="btn primary" type="submit">Guardar</button>
-    </form>`);setTimeout(()=>refreshQuickSelectors($('#movementForm')),0);
+    </form>`);setTimeout(()=>{refreshQuickSelectors($('#movementForm'));bindMoneyInputs($('#movementForm'));},0);
 }
 
 function openSavingForm(s={}){openModal(s.id?'Editar ahorro':'Nueva cuenta ahorro',`<form id="savingForm"><input type="hidden" name="id" value="${s.id||''}"><div class="row"><div class="field"><label>Nombre</label><input name="name" value="${s.name||''}" required></div><div class="field"><label>Dueño / objetivo</label><input name="owner" value="${s.owner||'Santiago'}"></div></div><div class="row"><div class="field"><label>Tipo</label><select name="type"><option value="saving">Ahorro</option><option value="investment">Inversión</option></select></div><div class="field"><label>Cuenta vinculada</label><select name="linkedAccountId"><option value="">—</option>${accountOptions(s.linkedAccountId)}</select></div></div><div class="row"><div class="field"><label>Saldo actual</label><input name="currentBalance" type="number" value="${s.currentBalance||0}"></div><div class="field"><label>Total depositado</label><input name="totalDeposited" type="number" value="${s.totalDeposited||0}"></div></div><div class="row"><div class="field"><label>Rentabilidad anual esperada (%)</label><input name="expectedAnnualReturn" type="number" step="0.1" value="${(Number(s.expectedAnnualReturn||0)*100)||5}"></div><div class="field"><label>Aporte mensual objetivo</label><input name="monthlyContributionTarget" type="number" value="${s.monthlyContributionTarget||0}"></div></div><div class="field"><label>Fecha último saldo</label><input name="lastBalanceDate" type="date" value="${s.lastBalanceDate||today()}"></div><button class="btn primary">Guardar ahorro</button></form>`);setTimeout(()=>{if(s.type)$('#savingForm [name=type]').value=s.type},0)}
@@ -488,11 +543,65 @@ function seedDemo(){if(active(db.movements).length&&!confirm('Ya tienes movimien
  if(!active(db.debts).length){db.debts.push(touch({id:'debt_tarjeta_demo',institution:'Tarjeta crédito demo',type:'credit_card',currentBalance:1250000,monthlyPayment:185000,minimumPayment:60000,monthlyInterestRate:.028,dueDay:10,remainingMonths:8,strategy:'avalanche',priority:'high',status:'active',_deleted:false}));}
  saveLocal();renderAll();toast('Demo cargada');}
 
-function initFirebase(){if(!window.firebase||!window.FINANZAS_FIREBASE_CONFIG){updateSync('Local · Firebase opcional no configurado');return;}try{firebase.initializeApp(window.FINANZAS_FIREBASE_CONFIG);auth=firebase.auth();firestore=firebase.firestore();firebaseReady=true;auth.onAuthStateChanged(user=>{currentUser=user;if(user){$('#authBtn').textContent='Salir';updateSync('Conectado · sincronizando');listenCloud();syncAllToCloud();}else{$('#authBtn').textContent='Entrar';updateSync('Local · sesión cerrada');unsubscribers.forEach(u=>u());unsubscribers=[];}})}catch(e){console.warn(e);updateSync('Local · Firebase con error')}}
+function initFirebase(){
+ if(!window.firebase||!window.FINANZAS_FIREBASE_CONFIG){updateSync('Local · Firebase opcional no configurado');return;}
+ try{
+  firebase.initializeApp(window.FINANZAS_FIREBASE_CONFIG);
+  auth=firebase.auth();firestore=firebase.firestore();firebaseReady=true;
+  auth.onAuthStateChanged(user=>{
+   currentUser=user;
+   if(user){$('#authBtn').textContent='Salir';updateSync('Conectado · sincronizando');closeLogin();listenCloud();syncAllToCloud();}
+   else{$('#authBtn').textContent='Entrar';updateSync('Local · sesión cerrada');unsubscribers.forEach(u=>u());unsubscribers=[];}
+  });
+ }catch(e){console.warn(e);updateSync('Local · Firebase con error');showLoginMessage(firebaseFriendlyError(e));}
+}
 function collectionRef(k){return firestore.collection('users').doc(currentUser.uid).collection(k)}
 async function syncAllToCloud(){if(!firebaseReady||!currentUser)return;try{const keys=['accounts','categories','movements','savingsAccounts','debts','rules'];for(const k of keys){const batch=firestore.batch();active(db[k]).concat((db[k]||[]).filter(x=>x._deleted)).forEach(item=>batch.set(collectionRef(k).doc(item.id),item,{merge:true}));await batch.commit();}db.lastSync=Date.now();localStorage.setItem(STORAGE_KEY,JSON.stringify(db));updateSync('Nube actualizada')}catch(e){console.warn(e);updateSync('Pendiente nube')}}
 function listenCloud(){unsubscribers.forEach(u=>u());unsubscribers=[];['accounts','categories','movements','savingsAccounts','debts','rules'].forEach(k=>{const unsub=collectionRef(k).onSnapshot(snap=>{remoteApplying=true;let changed=false;snap.docChanges().forEach(ch=>{const data=ch.doc.data();const local=(db[k]||[]).find(x=>x.id===data.id);if(!local||Number(data._updatedAt||0)>Number(local._updatedAt||0)){upsert(db[k],data);changed=true;}});if(changed){localStorage.setItem(STORAGE_KEY,JSON.stringify(db));renderAll();updateSync('Sincronizado desde nube')}remoteApplying=false;},err=>console.warn(err));unsubscribers.push(unsub);});}
-function authAction(){if(currentUser){auth.signOut();return}if(!firebaseReady){toast('Firebase no está configurado. Usa local o agrega FINANZAS_FIREBASE_CONFIG.');return;}const email=prompt('Email');if(!email)return;const pass=prompt('Contraseña');if(!pass)return;auth.signInWithEmailAndPassword(email,pass).catch(()=>auth.createUserWithEmailAndPassword(email,pass)).catch(e=>toast('No pude iniciar sesión: '+e.message));}
+let loginMode='signin';
+function firebaseFriendlyError(e){
+ const code=e?.code||'';
+ if(code.includes('api-key-not-valid'))return 'Firebase rechazó la API key. Revisa que el firebaseConfig publicado sea el del proyecto brujula-be291.';
+ if(code.includes('invalid-email'))return 'El correo no tiene un formato válido.';
+ if(code.includes('wrong-password')||code.includes('invalid-credential'))return 'Correo o contraseña incorrectos.';
+ if(code.includes('user-not-found'))return 'No existe una cuenta con ese correo. Usa Crear cuenta.';
+ if(code.includes('email-already-in-use'))return 'Ese correo ya existe. Usa Entrar.';
+ if(code.includes('weak-password'))return 'La contraseña debe tener al menos 6 caracteres.';
+ if(code.includes('network-request-failed'))return 'No hay conexión. Puedes usar la app en modo local.';
+ return e?.message||'No pude iniciar sesión.';
+}
+function showLoginMessage(msg){const el=$('#loginMsg');if(el)el.textContent=msg||'';}
+function openLogin(){
+ if(!firebaseReady){toast('Firebase no está disponible. Revisa la configuración.');}
+ const el=$('#loginOverlay');if(el){el.hidden=false;showLoginMessage('');setTimeout(()=>el.querySelector('input[name=email]')?.focus(),60);}
+}
+function closeLogin(){const el=$('#loginOverlay');if(el)el.hidden=true;showLoginMessage('');}
+function setLoginMode(mode){
+ loginMode=mode==='signup'?'signup':'signin';
+ $$('[data-login-mode]').forEach(b=>b.classList.toggle('active',b.dataset.loginMode===loginMode));
+ const submit=$('#loginSubmit');if(submit)submit.textContent=loginMode==='signup'?'Crear cuenta':'Entrar';
+ const pass=$('#loginForm input[name=password]');if(pass)pass.autocomplete=loginMode==='signup'?'new-password':'current-password';
+ showLoginMessage('');
+}
+async function handleLoginSubmit(e){
+ e.preventDefault();
+ if(!firebaseReady||!auth){showLoginMessage('Firebase no está configurado o no cargó.');return;}
+ const fd=new FormData(e.target);const email=(fd.get('email')||'').toString().trim();const pass=(fd.get('password')||'').toString();
+ const btn=$('#loginSubmit');if(btn)btn.disabled=true;
+ try{
+  if(loginMode==='signup')await auth.createUserWithEmailAndPassword(email,pass);
+  else await auth.signInWithEmailAndPassword(email,pass);
+  closeLogin();toast('Sesión iniciada');
+ }catch(err){console.warn(err);showLoginMessage(firebaseFriendlyError(err));}
+ finally{if(btn)btn.disabled=false;}
+}
+function forgotPassword(){
+ if(!firebaseReady||!auth){showLoginMessage('Firebase no está disponible.');return;}
+ const email=$('#loginForm input[name=email]')?.value?.trim();
+ if(!email){showLoginMessage('Escribe tu correo para recuperar contraseña.');return;}
+ auth.sendPasswordResetEmail(email).then(()=>showLoginMessage('Te envié un correo de recuperación.')).catch(e=>showLoginMessage(firebaseFriendlyError(e)));
+}
+function authAction(){if(currentUser){auth.signOut();return}openLogin();}
 
 function switchTab(tab){
   if(!tab)return;
@@ -509,8 +618,8 @@ function bind(){
  $$('.tab').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();switchTab(btn.dataset.tab);}));
  document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;if(t.dataset.tab){e.preventDefault();switchTab(t.dataset.tab);return;}
  if(t.dataset.createDetail){createDetailFromForm(t.closest('form'));return;} if(t.id==='openMovementBtn')openMovementForm(); if(t.id==='openAccountBtn')openAccountForm(); if(t.id==='openSavingBtn')openSavingForm(); if(t.id==='openDebtBtn')openDebtForm(); if(t.id==='closeModal')closeModal(); if(t.id==='exportBtn')exportJson(); if(t.id==='seedBtn')seedDemo(); if(t.id==='refreshControl')renderControl(); if(t.id==='authBtn')authAction(); if(t.id==='themeBtn')setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
- if(t.dataset.delMov)deleteById(db.movements,t.dataset.delMov); if(t.dataset.editMov)openMovementForm(byId(db.movements,t.dataset.editMov)); if(t.dataset.editSaving)openSavingForm(byId(db.savingsAccounts,t.dataset.editSaving)); if(t.dataset.editDebt)openDebtForm(byId(db.debts,t.dataset.editDebt));});
- $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});$('#controlMonth').addEventListener('change',renderControl);$('#controlTagFilter')?.addEventListener('change',renderControl);document.addEventListener('input',e=>{if(e.target.name==='date'){const form=e.target.closest('form');const pv=form&&form.querySelector('[data-period-preview]');if(pv)pv.textContent=periodFromDate(e.target.value);const y=form&&form.querySelector('[name=incomeYear]');const m=form&&form.querySelector('[name=incomeMonth]');if(y&&!y.dataset.touched&&m&&!m.dataset.touched)setIncomePeriodSelectors(form,periodFromDate(e.target.value));else updateIncomePeriodPreview(form);} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetail'){refreshNewDetailSuggestion(e.target.closest('form'));} if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));}});document.addEventListener('change',e=>{if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetailGroup'){const form=e.target.closest('form');const wrap=form?.querySelector('[data-new-group-wrap]');if(wrap)wrap.classList.toggle('hidden',e.target.value!=='__new__');}});}
+ if(t.dataset.loginMode){setLoginMode(t.dataset.loginMode);return;} if(t.id==='localModeBtn'){closeLogin();return;} if(t.id==='forgotPassBtn'){forgotPassword();return;} if(t.dataset.delMov)deleteById(db.movements,t.dataset.delMov); if(t.dataset.editMov)openMovementForm(byId(db.movements,t.dataset.editMov)); if(t.dataset.editSaving)openSavingForm(byId(db.savingsAccounts,t.dataset.editSaving)); if(t.dataset.editDebt)openDebtForm(byId(db.debts,t.dataset.editDebt));});
+ $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});$('#loginForm')?.addEventListener('submit',handleLoginSubmit);$('#controlMonth').addEventListener('change',renderControl);$('#controlTagFilter')?.addEventListener('change',renderControl);document.addEventListener('input',e=>{if(e.target.name==='date'){const form=e.target.closest('form');const pv=form&&form.querySelector('[data-period-preview]');if(pv)pv.textContent=periodFromDate(e.target.value);const y=form&&form.querySelector('[name=incomeYear]');const m=form&&form.querySelector('[name=incomeMonth]');if(y&&!y.dataset.touched&&m&&!m.dataset.touched)setIncomePeriodSelectors(form,periodFromDate(e.target.value));else updateIncomePeriodPreview(form);} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetail'){refreshNewDetailSuggestion(e.target.closest('form'));} if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));}});document.addEventListener('change',e=>{if(e.target.name==='type'||e.target.name==='categoryGroup'){refreshQuickSelectors(e.target.closest('form'));} if(e.target.name==='incomeYear'||e.target.name==='incomeMonth'){e.target.dataset.touched='1';updateIncomePeriodPreview(e.target.closest('form'));} if(e.target.name==='newDetailGroup'){const form=e.target.closest('form');const wrap=form?.querySelector('[data-new-group-wrap]');if(wrap)wrap.classList.toggle('hidden',e.target.value!=='__new__');}});}
 
 function boot(){setTheme(localStorage.getItem(THEME_KEY)||'light');loadLocal();bind();renderAll();initFirebase();const manifest={name:'BRÚJULA Finanzas',short_name:'BRÚJULA',start_url:'.',display:'standalone',background_color:'#ffffff',theme_color:'#ffffff',icons:[]};const link=document.createElement('link');link.rel='manifest';link.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(manifest));document.head.appendChild(link);}
 boot();
