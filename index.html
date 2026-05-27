@@ -138,7 +138,7 @@
     <div class="topline">
       <div class="brand">
         <div class="logo">B</div>
-        <div><h1>BRÚJULA</h1><small>finanzas-016 · manual-first</small></div>
+        <div><h1>BRÚJULA</h1><small>finanzas-020 · manual-first</small></div>
       </div>
       <div class="actions">
         <span class="sync" id="syncStatus">Local listo</span>
@@ -439,6 +439,22 @@ let mov={id,date,dateTime:date+'T00:00',period,type,amount,currency:'CLP',accoun
 
 function handleMovementSubmit(form){const mov=movementDraftFromForm(form,uid('mov'));if(!mov)return;touch(mov);db.movements.push(mov);recalculateSalaryCyclePeriods();saveLocal();renderAll();toast(mov.type==='income'?'Ingreso guardado':mov.type==='transfer'?'Transferencia guardada':'Gasto guardado');}
 
+// Guardado robusto del formulario de movimientos.
+// Evita que el navegador haga submit nativo tipo GET y pierda la línea.
+window.BRUJULA_saveMovementForm=function(form){
+  const fd=new FormData(form);
+  const id=fd.get('id')||uid('mov');
+  const obj=movementDraftFromForm(form,id);
+  if(!obj)return false;
+  upsert(db.movements,touch(obj));
+  recalculateSalaryCyclePeriods();
+  saveLocal();
+  renderAll();
+  closeModal();
+  toast(obj.type==='income'?'Ingreso guardado':obj.type==='transfer'?'Transferencia guardada':'Gasto guardado');
+  return false;
+};
+
 function accountBalance(accountId){return active(db.movements).reduce((total,m)=>{const amount=Number(m.amount||0);if(m.type==='income'||m.type==='refund'){return m.accountToId===accountId?total+amount:total}if(m.type==='expense'||m.type==='debt_payment'||m.type==='saving'){return m.accountFromId===accountId?total-amount:total}if(m.type==='transfer'){let v=total;if(m.accountFromId===accountId)v-=amount;if(m.accountToId===accountId)v+=amount;return v}return total},Number(byId(db.accounts,accountId)?.currentBalance||0))}
 function renderAccountSummary(){const rows=bankAccounts().map(a=>({name:a.name,balance:accountBalance(a.id)}));const total=rows.reduce((a,x)=>a+x.balance,0);$('#accountSummary').innerHTML=[...rows,{name:'Saldo consolidado',balance:total,consolidated:true}].map(x=>`<div class="account-balance ${x.consolidated?'consolidated':''}"><span class="label">${x.name}</span><span class="value ${x.balance>=0?'positive':'negative'}">${money(x.balance)}</span></div>`).join('')}
 function renderHome(){recalculateSalaryCyclePeriods();const month=normalizePeriod(currentOperationalPeriod());const s=monthSummary(month);const homeStatus=$('#homePeriodStatus');if(homeStatus)homeStatus.textContent=periodStatusText(month);$('#homeIncome').textContent=money(s.income);$('#homeExpense').textContent='-'+money(s.expense);$('#kpiResult').textContent=money(s.result);$('#kpiResult').className='value '+(s.result>=0?'positive':'negative');$('#kpiSaving').textContent=money(s.saving);$('#kpiSavingHint').textContent=`${s.income?pct(s.saving/s.income):'0%'} del ingreso`;$('#kpiExpenseRatio').textContent=s.income?pct(s.expense/s.income):'0%';$('#kpiDebtRatio').textContent=s.income?pct(s.debt/s.income):'0%';renderAccountSummary();
@@ -490,7 +506,7 @@ function openMovementForm(m={}){
   const fromId=m.accountFromId||'';
   const toId=m.accountToId||'';
   openModal(m.id?'Editar movimiento':'Agregar movimiento',`
-    <form id="movementForm">
+    <form id="movementForm" action="javascript:void(0)" autocomplete="off" onsubmit="event.preventDefault(); window.BRUJULA_saveMovementForm && window.BRUJULA_saveMovementForm(this); return false;">
       <input type="hidden" name="id" value="${m.id||''}">
       <div class="row">
         <div class="field"><label>Fecha</label><input name="date" type="date" value="${date}" required><small class="footer-note">Período por fecha: <b data-period-preview>${periodFromDate(date)}</b></small></div>
@@ -522,10 +538,9 @@ function openDebtForm(d={}){openModal(d.id?'Editar deuda':'Nueva deuda',`<form i
 function upsert(arr,obj){const i=arr.findIndex(x=>x.id===obj.id); if(i>=0)arr[i]={...arr[i],...obj}; else arr.push(obj);}
 function handleModalSubmit(e){const f=e.target;if(!['accountForm','movementForm','savingForm','debtForm'].includes(f.id))return;e.preventDefault();const fd=new FormData(f); if(f.id==='accountForm'){const id=fd.get('id')||uid('acc');upsert(db.accounts,touch({id,name:fd.get('name'),type:fd.get('type'),owner:fd.get('owner'),currentBalance:Number(fd.get('currentBalance')||0),includeInNetWorth:fd.get('includeInNetWorth')==='on',active:true,_deleted:false}));}
  if(f.id==='movementForm'){
-  const id=fd.get('id')||uid('mov');
-  const obj=movementDraftFromForm(f,id);
-  if(!obj)return;
-  upsert(db.movements,touch(obj));recalculateSalaryCyclePeriods();}
+  window.BRUJULA_saveMovementForm(f);
+  return;
+ }
  if(f.id==='savingForm'){const id=fd.get('id')||uid('sav');upsert(db.savingsAccounts,touch({id,name:fd.get('name'),owner:fd.get('owner'),type:fd.get('type'),linkedAccountId:fd.get('linkedAccountId')||null,currentBalance:Number(fd.get('currentBalance')||0),totalDeposited:Number(fd.get('totalDeposited')||0),expectedAnnualReturn:Number(fd.get('expectedAnnualReturn')||0)/100,monthlyContributionTarget:Number(fd.get('monthlyContributionTarget')||0),lastBalanceDate:fd.get('lastBalanceDate')||today(),_deleted:false}));}
  if(f.id==='debtForm'){const id=fd.get('id')||uid('debt');upsert(db.debts,touch({id,institution:fd.get('institution'),type:fd.get('type'),currentBalance:Number(fd.get('currentBalance')||0),monthlyPayment:Number(fd.get('monthlyPayment')||0),minimumPayment:Number(fd.get('minimumPayment')||0),monthlyInterestRate:Number(fd.get('monthlyInterestRate')||0)/100,dueDay:Number(fd.get('dueDay')||10),remainingMonths:Number(fd.get('remainingMonths')||0),strategy:fd.get('strategy'),priority:fd.get('priority'),status:'active',_deleted:false}));}
  saveLocal();renderAll();closeModal();toast('Guardado');}
@@ -616,6 +631,7 @@ function switchTab(tab){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function bind(){
+ document.addEventListener('submit',e=>{if(e.target&&e.target.id==='movementForm'){e.preventDefault();e.stopPropagation();window.BRUJULA_saveMovementForm(e.target);}},true);
  document.addEventListener('submit',handleModalSubmit);
  $$('.tab').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();switchTab(btn.dataset.tab);}));
  document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;if(t.dataset.tab){e.preventDefault();switchTab(t.dataset.tab);return;}
